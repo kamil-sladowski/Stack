@@ -2,9 +2,9 @@ import sys
 import pygame
 from Stack import Stack
 
-X_MAX = 500
+X_MAX = 800
 Y_MAX = 300
-RADIUS_STEP = 5
+RADIUS_STEP = 10
 
 
 class Display:
@@ -34,8 +34,21 @@ class Display:
                 elif event.key == 8: #backspace
                     element = self.stack.pop()
                     self.show_message("Taken from stack: ", element)
-                pygame.display.update()
-                pygame.event.clear()
+            self.draw_stack(self.stack.stack)
+            pygame.display.update()
+            pygame.event.clear()
+
+    def draw_stack(self, stack_list):
+        counter = 0
+        y = 100
+        margin = 110
+        for element in stack_list:
+            self.draw_in((2 * RADIUS_STEP * n + margin, y), element)
+            counter += 1
+
+    def draw_in(self, pos, num):
+        color = self.stack.get_color(num)
+        pygame.draw.circle(self.screen, color, pos, RADIUS_STEP, 0)
 
     def show_message(self, comment, event_key):
         print(comment)

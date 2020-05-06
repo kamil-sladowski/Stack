@@ -1,18 +1,22 @@
+from random import randint
 
 class Stack:
 
     def __init__(self):
         self.stack = []
+        self.colors_dict = {}
 
     def append(self, element):
         self.stack.append(element)
+        if not element in self.colors_dict.keys():
+            self.colors_dict[element] = (randint(0, 255), randint(0, 255), randint(0, 255))
 
     def pop(self):
-        try:
+        if len(self.stack) > 0:
             last_element = self.stack.pop(-1)
             print("Taken from stack: " + str(last_element))
             return last_element
-        except IndexError:
+        else:
             print("Stack is empty")
 
     def show_content(self):
@@ -23,6 +27,9 @@ class Stack:
 
     def is_empty(self):
         return len(self.stack) == 0
+
+    def get_color(self, num):
+        return self.colors_dict[num]
 
 if __name__ == '__main__':
     s = Stack()
