@@ -27,13 +27,15 @@ class Display:
             if event.type == pygame.KEYDOWN:
                 print(event)
                 self.screen.fill((255, 255, 255))
-                if 48 <= event.key <= 57: # 48: 0, 57: 9
+                if 48 <= event.key <= 57 or 65 <= event.key <= 90 or 97 <= event.key <= 122: # ascii codes
                     print("Added to stack: " + str(event.unicode))
                     self.stack.append(event.unicode)
                     self.show_message("Added to stack: ", event.unicode)
                 elif event.key == 8: #backspace
                     element = self.stack.pop()
                     self.show_message("Taken from stack: ", element)
+                else:
+                    self.show_message("Key not allowed: ", event.unicode)
             self.draw_stack(self.stack.stack)
             pygame.display.update()
             pygame.event.clear()
@@ -43,7 +45,7 @@ class Display:
         y = 100
         margin = 110
         for element in stack_list:
-            self.draw_in((2 * RADIUS_STEP * n + margin, y), element)
+            self.draw_in((2 * RADIUS_STEP * counter + margin, y), element)
             counter += 1
 
     def draw_in(self, pos, num):
